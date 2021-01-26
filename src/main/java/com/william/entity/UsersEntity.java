@@ -1,5 +1,8 @@
 package com.william.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -15,11 +18,12 @@ public class UsersEntity {
     private String address;
     private String avataImg;
     private Integer isactive;
+    private Integer role;
     private Timestamp createtime;
     private Collection<CommentEntity> commentsById;
     private Collection<PostEntity> postsById;
     private ActivestatusEntity activestatusByIsactive;
-    private Collection<UsersRolesEntity> usersRolesById;
+    private RolesEntity rolesByRole;
 
     @Id
     @Column(name = "id")
@@ -92,6 +96,16 @@ public class UsersEntity {
     }
 
     @Basic
+    @Column(name = "role")
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
+    @Basic
     @Column(name = "createtime")
     public Timestamp getCreatetime() {
         return createtime;
@@ -106,15 +120,16 @@ public class UsersEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UsersEntity that = (UsersEntity) o;
-        return id == that.id && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(address, that.address) && Objects.equals(avataImg, that.avataImg) && Objects.equals(isactive, that.isactive) && Objects.equals(createtime, that.createtime);
+        return id == that.id && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(address, that.address) && Objects.equals(avataImg, that.avataImg) && Objects.equals(isactive, that.isactive) && Objects.equals(role, that.role) && Objects.equals(createtime, that.createtime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, phoneNumber, address, avataImg, isactive, createtime);
+        return Objects.hash(id, username, password, phoneNumber, address, avataImg, isactive, role, createtime);
     }
 
     @OneToMany(mappedBy = "usersByUserId")
+    @JsonManagedReference
     public Collection<CommentEntity> getCommentsById() {
         return commentsById;
     }
@@ -124,6 +139,7 @@ public class UsersEntity {
     }
 
     @OneToMany(mappedBy = "usersByUserId")
+    @JsonManagedReference
     public Collection<PostEntity> getPostsById() {
         return postsById;
     }
@@ -132,8 +148,9 @@ public class UsersEntity {
         this.postsById = postsById;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "isactive", referencedColumnName = "id", insertable=false, updatable=false)
+    @JsonBackReference
     public ActivestatusEntity getActivestatusByIsactive() {
         return activestatusByIsactive;
     }
@@ -142,12 +159,14 @@ public class UsersEntity {
         this.activestatusByIsactive = activestatusByIsactive;
     }
 
-    @OneToMany(mappedBy = "usersByUserId")
-    public Collection<UsersRolesEntity> getUsersRolesById() {
-        return usersRolesById;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role", referencedColumnName = "id", insertable=false, updatable=false)
+    @JsonBackReference
+    public RolesEntity getRolesByRole() {
+        return rolesByRole;
     }
 
-    public void setUsersRolesById(Collection<UsersRolesEntity> usersRolesById) {
-        this.usersRolesById = usersRolesById;
+    public void setRolesByRole(RolesEntity rolesByRole) {
+        this.rolesByRole = rolesByRole;
     }
 }

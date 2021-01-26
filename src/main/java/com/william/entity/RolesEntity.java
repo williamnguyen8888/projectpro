@@ -9,7 +9,7 @@ import java.util.Objects;
 public class RolesEntity {
     private int id;
     private String name;
-    private Collection<UsersRolesEntity> usersRolesById;
+    private Collection<UsersEntity> usersById;
 
     @Id
     @Column(name = "id")
@@ -44,12 +44,12 @@ public class RolesEntity {
         return Objects.hash(id, name);
     }
 
-    @OneToMany(mappedBy = "rolesByRoleId")
-    public Collection<UsersRolesEntity> getUsersRolesById() {
-        return usersRolesById;
+    @OneToMany(mappedBy = "rolesByRole")
+    public Collection<UsersEntity> getUsersById() {
+        return usersById;
     }
 
-    public void setUsersRolesById(Collection<UsersRolesEntity> usersRolesById) {
-        this.usersRolesById = usersRolesById;
+    public void setUsersById(Collection<UsersEntity> usersById) {
+        this.usersById = usersById;
     }
 }
