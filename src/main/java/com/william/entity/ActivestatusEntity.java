@@ -1,5 +1,7 @@
 package com.william.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -49,6 +51,7 @@ public class ActivestatusEntity {
     }
 
     @OneToMany(mappedBy = "activestatusByIsactive")
+    @JsonManagedReference
     public Collection<CategoryEntity> getCategoriesById() {
         return categoriesById;
     }
@@ -58,6 +61,7 @@ public class ActivestatusEntity {
     }
 
     @OneToMany(mappedBy = "activestatusByIsactive")
+    @JsonManagedReference
     public Collection<CommentEntity> getCommentsById() {
         return commentsById;
     }
@@ -67,6 +71,7 @@ public class ActivestatusEntity {
     }
 
     @OneToMany(mappedBy = "activestatusByCommentStatus")
+    @JsonManagedReference
     public Collection<PostEntity> getPostsById() {
         return postsById;
     }
@@ -76,6 +81,7 @@ public class ActivestatusEntity {
     }
 
     @OneToMany(mappedBy = "activestatusByIsactive")
+    @JsonManagedReference
     public Collection<PostEntity> getPostsById_0() {
         return postsById_0;
     }
@@ -85,6 +91,7 @@ public class ActivestatusEntity {
     }
 
     @OneToMany(mappedBy = "activestatusByIsactive")
+    @JsonManagedReference
     public Collection<UsersEntity> getUsersById() {
         return usersById;
     }
