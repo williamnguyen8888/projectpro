@@ -1,6 +1,7 @@
 package com.william.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -205,6 +206,7 @@ public class PostEntity {
 
     @ManyToOne
     @JoinColumn(name = "comment_status", referencedColumnName = "id", insertable=false, updatable=false)
+    @JsonBackReference(value = "postComment-activeStatus")
     public ActivestatusEntity getActivestatusByCommentStatus() {
         return activestatusByCommentStatus;
     }
@@ -215,6 +217,7 @@ public class PostEntity {
 
     @ManyToOne
     @JoinColumn(name = "isactive", referencedColumnName = "id", insertable=false, updatable=false)
+    @JsonBackReference(value = "post-activeStatus")
     public ActivestatusEntity getActivestatusByIsactive() {
         return activestatusByIsactive;
     }
@@ -224,6 +227,7 @@ public class PostEntity {
     }
 
     @OneToMany(mappedBy = "postByPostid")
+    @JsonManagedReference(value = "post-postTagPost")
     public void setPosttagPostsById(Collection<PosttagPostEntity> posttagPostsById) {
         this.posttagPostsById = posttagPostsById;
     }

@@ -71,6 +71,7 @@ public class ActivestatusEntity {
     }
 
     @OneToMany(mappedBy = "activestatusByCommentStatus")
+    @JsonManagedReference(value = "postComment-activeStatus")
     public Collection<PostEntity> getPostsById() {
         return postsById;
     }
@@ -80,6 +81,7 @@ public class ActivestatusEntity {
     }
 
     @OneToMany(mappedBy = "activestatusByIsactive")
+    @JsonManagedReference(value = "post-activeStatus")
     public Collection<PostEntity> getPostsById_0() {
         return postsById_0;
     }

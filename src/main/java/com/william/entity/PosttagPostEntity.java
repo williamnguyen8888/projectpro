@@ -1,5 +1,7 @@
 package com.william.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -56,8 +58,8 @@ public class PosttagPostEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "postid", referencedColumnName = "id", insertable=false, updatable=false)
-
+    @JoinColumn(name = "postid", referencedColumnName = "id", insertable = false, updatable = false)
+    @JsonBackReference(value = "post-postTagPost")
     public PostEntity getPostByPostid() {
         return postByPostid;
     }
@@ -67,7 +69,7 @@ public class PosttagPostEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "postTagId", referencedColumnName = "id", insertable=false, updatable=false)
+    @JoinColumn(name = "postTagId", referencedColumnName = "id", insertable = false, updatable = false)
     public PosttagEntity getPosttagByPostTagId() {
         return posttagByPostTagId;
     }
