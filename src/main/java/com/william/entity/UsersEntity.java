@@ -14,6 +14,7 @@ public class UsersEntity {
     private int id;
     private String username;
     private String password;
+    private String email;
     private Integer phoneNumber;
     private String address;
     private String avataImg;
@@ -53,6 +54,16 @@ public class UsersEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Basic
+    @Column(name = "email")
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Basic
@@ -129,7 +140,7 @@ public class UsersEntity {
     }
 
     @OneToMany(mappedBy = "usersByUserId")
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-comment")
     public Collection<CommentEntity> getCommentsById() {
         return commentsById;
     }
@@ -139,7 +150,7 @@ public class UsersEntity {
     }
 
     @OneToMany(mappedBy = "usersByUserId")
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-post")
     public Collection<PostEntity> getPostsById() {
         return postsById;
     }
@@ -150,7 +161,7 @@ public class UsersEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "isactive", referencedColumnName = "id", insertable=false, updatable=false)
-    @JsonBackReference
+    @JsonBackReference(value="user-acctiveStatus")
     public ActivestatusEntity getActivestatusByIsactive() {
         return activestatusByIsactive;
     }
@@ -161,7 +172,7 @@ public class UsersEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role", referencedColumnName = "id", insertable=false, updatable=false)
-    @JsonBackReference
+    @JsonBackReference(value="user-roles")
     public RolesEntity getRolesByRole() {
         return rolesByRole;
     }

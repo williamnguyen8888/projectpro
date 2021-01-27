@@ -57,6 +57,7 @@ public class PosttagPostEntity {
 
     @ManyToOne
     @JoinColumn(name = "postid", referencedColumnName = "id", insertable=false, updatable=false)
+
     public PostEntity getPostByPostid() {
         return postByPostid;
     }

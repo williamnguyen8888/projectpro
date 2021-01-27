@@ -1,5 +1,8 @@
 package com.william.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -17,13 +20,15 @@ public class CategoryEntity {
     private ActivestatusEntity activestatusByIsactive;
     private Collection<PostEntity> postsById;
 
+
+
     @Id
     @Column(name = "id")
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -91,7 +96,8 @@ public class CategoryEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "isactive", referencedColumnName = "id", insertable=false, updatable=false)
+    @JoinColumn(name = "isactive", referencedColumnName = "id", insertable = false, updatable = false)
+    @JsonBackReference("category-activeStatus")
     public ActivestatusEntity getActivestatusByIsactive() {
         return activestatusByIsactive;
     }
@@ -101,6 +107,7 @@ public class CategoryEntity {
     }
 
     @OneToMany(mappedBy = "categoryByCategoryId")
+    @JsonManagedReference(value = "category-post")
     public Collection<PostEntity> getPostsById() {
         return postsById;
     }

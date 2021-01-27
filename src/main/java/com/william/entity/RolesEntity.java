@@ -1,5 +1,7 @@
 package com.william.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -45,6 +47,7 @@ public class RolesEntity {
     }
 
     @OneToMany(mappedBy = "rolesByRole")
+    @JsonManagedReference(value="user-roles")
     public Collection<UsersEntity> getUsersById() {
         return usersById;
     }

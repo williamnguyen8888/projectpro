@@ -6,13 +6,14 @@ import com.william.entity.ResponseStatus;
 import com.william.entity.UsersEntity;
 import com.william.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping(value = "user",consumes = MediaType.APPLICATION_JSON_VALUE)
 public class UserRestController {
     @Autowired
     private IUserService userService;
@@ -31,7 +32,8 @@ public class UserRestController {
     @PostMapping
     public Response create(@RequestBody UsersEntity user) {
         userService.save(user);
-        response.setData(user);
+        UsersEntity usersEntity = userService.findUsersEntityByUsername(user.getUsername());
+        response.setData(usersEntity);
         response.setStatus(ResponseStatus.SUCCESS);
         response.setMessage("SUCCESS");
         return response;

@@ -1,5 +1,7 @@
 package com.william.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -92,6 +94,7 @@ public class CommentEntity {
 
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id", nullable = false, insertable=false, updatable=false)
+    @JsonBackReference(value = "user-comment")
     public UsersEntity getUsersByUserId() {
         return usersByUserId;
     }

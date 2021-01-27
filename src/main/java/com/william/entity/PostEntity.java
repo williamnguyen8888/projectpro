@@ -1,5 +1,7 @@
 package com.william.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -182,6 +184,7 @@ public class PostEntity {
 
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id", nullable = false, insertable=false, updatable=false)
+    @JsonBackReference(value = "user-post")
     public UsersEntity getUsersByUserId() {
         return usersByUserId;
     }
@@ -192,10 +195,10 @@ public class PostEntity {
 
     @ManyToOne
     @JoinColumn(name = "categoryId", referencedColumnName = "id", nullable = false, insertable=false, updatable=false)
+    @JsonBackReference(value = "category-post")
     public CategoryEntity getCategoryByCategoryId() {
         return categoryByCategoryId;
     }
-
     public void setCategoryByCategoryId(CategoryEntity categoryByCategoryId) {
         this.categoryByCategoryId = categoryByCategoryId;
     }
@@ -221,10 +224,6 @@ public class PostEntity {
     }
 
     @OneToMany(mappedBy = "postByPostid")
-    public Collection<PosttagPostEntity> getPosttagPostsById() {
-        return posttagPostsById;
-    }
-
     public void setPosttagPostsById(Collection<PosttagPostEntity> posttagPostsById) {
         this.posttagPostsById = posttagPostsById;
     }

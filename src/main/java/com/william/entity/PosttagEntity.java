@@ -45,6 +45,7 @@ public class PosttagEntity {
     }
 
     @OneToMany(mappedBy = "posttagByPostTagId")
+
     public Collection<PosttagPostEntity> getPosttagPostsById() {
         return posttagPostsById;
     }
