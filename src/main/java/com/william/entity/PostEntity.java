@@ -18,6 +18,7 @@ public class PostEntity {
     private Integer layoutId;
     private String photo;
     private String content;
+    private String video;
     private Integer viewCount;
     private Integer commentCount;
     private Integer likeCount;
@@ -99,6 +100,16 @@ public class PostEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Basic
+    @Column(name = "video")
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.content = video;
     }
 
     @Basic

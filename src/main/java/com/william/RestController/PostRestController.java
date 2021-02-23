@@ -6,14 +6,18 @@ import com.william.entity.ResponseStatus;
 import com.william.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("post")
+@RequestMapping("api/post")
 public class PostRestController {
     @Autowired
     private IPostService postService;
@@ -78,6 +82,16 @@ public class PostRestController {
         } catch (Exception ex) {
 
         }
+        return response;
+    }
+
+    @GetMapping("Last9Record")
+    public Response Last9Record() {
+        Page<PostEntity> page = postService.findPostEntitiesByOrderByIdDesc(PageRequest.of(0, 9, Sort.by("id").descending()));
+        List<PostEntity> topUsersList = page.getContent();
+        response.setData(topUsersList);
+        response.setStatus(ResponseStatus.SUCCESS);
+        response.setMessage("SUCCESS");
         return response;
     }
 

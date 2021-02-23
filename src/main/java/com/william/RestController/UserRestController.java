@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "user",consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "api/user",consumes = MediaType.APPLICATION_JSON_VALUE)
 public class UserRestController {
     @Autowired
     private IUserService userService;
