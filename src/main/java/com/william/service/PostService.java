@@ -42,5 +42,9 @@ public class PostService implements IPostService {
     @Override
     public Page<PostEntity> findPostEntitiesByOrderByIdDesc(Pageable pageable){return  postRepository.findPostEntitiesByOrderByIdDesc(pageable);}
 
+    @Override
+    public Page<PostEntity> findPostEntitiesByCategoryIdOrderByIdDesc(int categoryId, Pageable pageable) {
+        return postRepository.findPostEntitiesByCategoryIdOrderByIdDesc(categoryId,pageable);
     }
+}
 

@@ -14,4 +14,5 @@ public interface IPostService {
     void deleteById(int id);
     PostEntity findPostEntityByTitle(String title);
     Page<PostEntity> findPostEntitiesByOrderByIdDesc(Pageable pageable);
+    Page<PostEntity> findPostEntitiesByCategoryIdOrderByIdDesc(int categoryId, Pageable pageable);
 }

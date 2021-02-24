@@ -10,4 +10,5 @@ import java.util.List;
 public interface IPostRepository extends PagingAndSortingRepository<PostEntity,Integer> {
     PostEntity findPostEntityByTitle(String title);
     Page<PostEntity> findPostEntitiesByOrderByIdDesc(Pageable pageable);
+    Page<PostEntity> findPostEntitiesByCategoryIdOrderByIdDesc(int categoryId, Pageable pageable);
 }

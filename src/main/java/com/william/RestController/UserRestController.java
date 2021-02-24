@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @RestController
@@ -81,11 +82,15 @@ public class UserRestController {
         }
         return response;
     }
+
+
     @PostMapping("/login")
-    public Response checkLogin(@RequestBody LoginEntity login){
+    public Response checkLogin(@RequestBody LoginEntity login, HttpSession session){
         boolean checkLogin = userService.existsUsersEntitiesByUsernameAndPassword(login.getUsername(),login.getPassword());
         if (checkLogin){
+
             UsersEntity user = userService.findUsersEntityByUsername(login.getUsername());
+            session.setAttribute("username",user.getUsername());
             response.setData(user);
             response.setStatus(ResponseStatus.SUCCESS);
             response.setMessage("SUCCESS");

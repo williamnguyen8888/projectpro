@@ -19,13 +19,16 @@ public class CategoryEntity {
     private Timestamp createtime;
     private ActivestatusEntity activestatusByIsactive;
     private Collection<PostEntity> postsById;
-
-
+    private Collection<CategoryChildEntity> categoryChildrenById;
 
     @Id
     @Column(name = "id")
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setId(Integer id) {
@@ -114,5 +117,15 @@ public class CategoryEntity {
 
     public void setPostsById(Collection<PostEntity> postsById) {
         this.postsById = postsById;
+    }
+
+    @OneToMany(mappedBy = "categoryByCategoryIdParent")
+    @JsonManagedReference(value = "category-categoryChild")
+    public Collection<CategoryChildEntity> getCategoryChildrenById() {
+        return categoryChildrenById;
+    }
+
+    public void setCategoryChildrenById(Collection<CategoryChildEntity> categoryChildrenById) {
+        this.categoryChildrenById = categoryChildrenById;
     }
 }

@@ -94,5 +94,14 @@ public class PostRestController {
         response.setMessage("SUCCESS");
         return response;
     }
+    @GetMapping("Last1RecordBycategoryId")
+    public Response Last1RecordBycategoryId(@RequestParam int id) {
+        Page<PostEntity> page = postService.findPostEntitiesByCategoryIdOrderByIdDesc(id,PageRequest.of(0, 9, Sort.by("id").descending()));
+        List<PostEntity> topUsersList = page.getContent();
+        response.setData(topUsersList);
+        response.setStatus(ResponseStatus.SUCCESS);
+        response.setMessage("SUCCESS");
+        return response;
+    }
 
 }
