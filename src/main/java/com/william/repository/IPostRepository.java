@@ -11,4 +11,5 @@ public interface IPostRepository extends PagingAndSortingRepository<PostEntity,I
     PostEntity findPostEntityByTitle(String title);
     Page<PostEntity> findPostEntitiesByOrderByIdDesc(Pageable pageable);
     Page<PostEntity> findPostEntitiesByCategoryIdOrderByIdDesc(int categoryId, Pageable pageable);
+    PostEntity findFirstByCategoryIdOrderByIdDesc(int categoryId);
 }

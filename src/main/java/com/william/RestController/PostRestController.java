@@ -70,7 +70,7 @@ public class PostRestController {
         Optional<PostEntity> postEntity = postService.findById(idPost);
 
         try {
-            if (!postEntity.isPresent()){
+            if (!postEntity.isPresent()) {
                 response.setData(null);
                 response.setStatus(ResponseStatus.ERROR);
                 response.setMessage("ERROR");
@@ -94,11 +94,11 @@ public class PostRestController {
         response.setMessage("SUCCESS");
         return response;
     }
+
     @GetMapping("Last1RecordBycategoryId")
     public Response Last1RecordBycategoryId(@RequestParam int id) {
-        Page<PostEntity> page = postService.findPostEntitiesByCategoryIdOrderByIdDesc(id,PageRequest.of(0, 9, Sort.by("id").descending()));
-        List<PostEntity> topUsersList = page.getContent();
-        response.setData(topUsersList);
+        PostEntity postEntity = postService.findFirstByCategoryIdOrderByIdDesc(id);
+        response.setData(postEntity);
         response.setStatus(ResponseStatus.SUCCESS);
         response.setMessage("SUCCESS");
         return response;
