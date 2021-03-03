@@ -18,7 +18,7 @@ public class PostEntity {
     private Integer layoutId;
     private String photo;
     private String content;
-    private String video;
+
     private Integer viewCount;
     private Integer commentCount;
     private Integer likeCount;
@@ -31,6 +31,7 @@ public class PostEntity {
     private ActivestatusEntity activestatusByCommentStatus;
     private ActivestatusEntity activestatusByIsactive;
     private Collection<PosttagPostEntity> posttagPostsById;
+    private Collection<VideosEntity> Videos;
 
     @Id
     @Column(name = "id")
@@ -100,16 +101,6 @@ public class PostEntity {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    @Basic
-    @Column(name = "video")
-    public String getVideo() {
-        return video;
-    }
-
-    public void setVideo(String video) {
-        this.content = video;
     }
 
     @Basic
@@ -211,6 +202,7 @@ public class PostEntity {
     public CategoryEntity getCategoryByCategoryId() {
         return categoryByCategoryId;
     }
+
     public void setCategoryByCategoryId(CategoryEntity categoryByCategoryId) {
         this.categoryByCategoryId = categoryByCategoryId;
     }
@@ -241,5 +233,15 @@ public class PostEntity {
     @JsonManagedReference(value = "post-postTagPost")
     public void setPosttagPostsById(Collection<PosttagPostEntity> posttagPostsById) {
         this.posttagPostsById = posttagPostsById;
+    }
+
+    @OneToMany(mappedBy = "postByPostId")
+    @JsonManagedReference(value = "videos-Post")
+    public Collection<VideosEntity> getVideosById() {
+        return Videos;
+    }
+
+    public void setVideosById(Collection<VideosEntity> videosById) {
+        this.Videos = videosById;
     }
 }

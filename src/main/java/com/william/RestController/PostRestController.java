@@ -25,6 +25,7 @@ public class PostRestController {
 
     @GetMapping
     public Response getAll() {
+        Iterable<PostEntity> test = postService.findAll();
         response.setData(postService.findAll());
         response.setStatus(ResponseStatus.SUCCESS);
         response.setMessage("SUCCESS");
